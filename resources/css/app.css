@@ -1,11 +1,574 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../**/*.vue";
+
+/* =====================================================
+   DESIGN TOKENS
+===================================================== */
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* =========================
+       FONT
+    ========================= */
+
+    --font-display: "Inter", sans-serif;
+    --font-headline-sm: "Inter", sans-serif;
+    --font-body-md: "Inter", sans-serif;
+    --font-body-sm: "Inter", sans-serif;
+    --font-label-caps: "Inter", sans-serif;
+    --font-code: "Inter", monospace;
+
+    /* =========================
+       COLORS
+    ========================= */
+
+    --color-background: #FFF8F7;
+
+    --color-surface: #FFF8F7;
+    --color-surface-dim: #F4D2CF;
+    --color-surface-bright: #FFF8F7;
+
+    --color-surface-container-lowest: #FFFFFF;
+    --color-surface-container-low: #FFF0EE;
+    --color-surface-container: #FFE9E6;
+    --color-surface-container-high: #FFE2DE;
+    --color-surface-container-highest: #FDDBD7;
+
+    --color-primary: #BA0013;
+    --color-primary-container: #E31E24;
+    --color-primary-fixed: #FFDAD6;
+    --color-primary-fixed-dim: #FFB4AB;
+
+    --color-secondary: #575E70;
+    --color-secondary-container: #D9DFF5;
+
+    --color-tertiary: #006190;
+    --color-tertiary-container: #007BB5;
+
+    --color-error: #BA1A1A;
+    --color-error-container: #FFDAD6;
+
+    --color-on-primary: #FFFFFF;
+    --color-on-primary-container: #FFFAFA;
+
+    --color-on-background: #291715;
+    --color-on-surface: #291715;
+    --color-on-surface-variant: #5D3F3C;
+
+    --color-on-secondary: #FFFFFF;
+    --color-on-secondary-container: #5C6274;
+
+    --color-on-tertiary: #FFFFFF;
+    --color-on-tertiary-container: #FBFCFF;
+
+    --color-outline: #926F6B;
+    --color-outline-variant: #E7BDB8;
+
+    /* =========================
+       RADIUS
+    ========================= */
+
+    --radius: .25rem;
+    --radius-lg: .5rem;
+    --radius-xl: .75rem;
+    --radius-full: 9999px;
+
+    /* =========================
+       SPACING
+    ========================= */
+
+    --spacing-base: 4px;
+
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 40px;
+
+    --spacing-gutter: 24px;
+
+    --container-max: 1280px;
+
 }
+
+/* =====================================================
+   TYPOGRAPHY UTILITIES
+===================================================== */
+
+@utility text-display-lg {
+    font-size: 48px;
+    line-height: 56px;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+}
+
+@utility text-display-lg-mobile {
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+}
+
+@utility text-headline-sm {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+}
+
+@utility text-body-md {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0;
+    font-weight: 400;
+}
+
+@utility text-body-sm {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0;
+    font-weight: 400;
+}
+
+@utility text-label-caps {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: .05em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+@utility text-code {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -.01em;
+    font-weight: 500;
+}
+
+/* =====================================================
+   FONT FAMILY UTILITIES
+===================================================== */
+
+@utility font-display-lg {
+    font-family: var(--font-display);
+}
+
+@utility font-headline-sm {
+    font-family: var(--font-headline-sm);
+}
+
+@utility font-body-md {
+    font-family: var(--font-body-md);
+}
+
+@utility font-body-sm {
+    font-family: var(--font-body-sm);
+}
+
+@utility font-label-caps {
+    font-family: var(--font-label-caps);
+}
+
+@utility font-code {
+    font-family: var(--font-code);
+}
+
+/* =====================================================
+   SPACING UTILITIES
+===================================================== */
+
+@utility p-gutter {
+    padding: var(--spacing-gutter);
+}
+
+@utility p-xl {
+    padding: var(--spacing-xl);
+}
+
+@utility p-lg {
+    padding: var(--spacing-lg);
+}
+
+@utility p-md {
+    padding: var(--spacing-md);
+}
+
+@utility p-sm {
+    padding: var(--spacing-sm);
+}
+
+/* ------------------------- */
+
+@utility px-xl {
+    padding-inline: var(--spacing-xl);
+}
+
+@utility px-lg {
+    padding-inline: var(--spacing-lg);
+}
+
+@utility px-md {
+    padding-inline: var(--spacing-md);
+}
+
+@utility px-sm {
+    padding-inline: var(--spacing-sm);
+}
+
+/* ------------------------- */
+
+@utility py-xl {
+    padding-block: var(--spacing-xl);
+}
+
+@utility py-lg {
+    padding-block: var(--spacing-lg);
+}
+
+@utility py-md {
+    padding-block: var(--spacing-md);
+}
+
+@utility py-sm {
+    padding-block: var(--spacing-sm);
+}
+
+/* ------------------------- */
+
+@utility pt-lg {
+    padding-top: var(--spacing-lg);
+}
+
+@utility pt-md {
+    padding-top: var(--spacing-md);
+}
+
+/* =====================================================
+   MARGIN
+===================================================== */
+
+@utility mt-xl {
+    margin-top: var(--spacing-xl);
+}
+
+@utility mt-lg {
+    margin-top: var(--spacing-lg);
+}
+
+@utility mt-md {
+    margin-top: var(--spacing-md);
+}
+
+@utility mt-sm {
+    margin-top: var(--spacing-sm);
+}
+
+@utility mt-xs {
+    margin-top: var(--spacing-xs);
+}
+
+/* ------------------------- */
+
+@utility mb-xl {
+    margin-bottom: var(--spacing-xl);
+}
+
+@utility mb-lg {
+    margin-bottom: var(--spacing-lg);
+}
+
+@utility mb-md {
+    margin-bottom: var(--spacing-md);
+}
+
+@utility mb-sm {
+    margin-bottom: var(--spacing-sm);
+}
+
+@utility mb-xs {
+    margin-bottom: var(--spacing-xs);
+}
+
+/* =====================================================
+   GAP
+===================================================== */
+
+@utility gap-xl {
+    gap: var(--spacing-xl);
+}
+
+@utility gap-lg {
+    gap: var(--spacing-lg);
+}
+
+@utility gap-md {
+    gap: var(--spacing-md);
+}
+
+@utility gap-sm {
+    gap: var(--spacing-sm);
+}
+
+@utility gap-xs {
+    gap: var(--spacing-xs);
+}
+
+/* =====================================================
+   POSITION
+===================================================== */
+
+@utility left-gutter {
+    left: var(--spacing-gutter);
+}
+
+@utility left-md {
+    left: var(--spacing-md);
+}
+
+@utility right-md {
+    right: var(--spacing-md);
+}
+
+@utility top-xl {
+    top: var(--spacing-xl);
+}
+
+@utility top-md {
+    top: var(--spacing-md);
+}
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+@utility container-max {
+    max-width: var(--container-max);
+}
+
+/* =====================================================
+   SHADOW
+===================================================== */
+
+@utility shadow-card {
+    box-shadow:
+        0 4px 6px -1px rgb(0 0 0 / .05),
+        0 2px 4px -2px rgb(0 0 0 / .05);
+}
+
+/* =====================================================
+   COMPONENT HELPERS
+===================================================== */
+
+@utility login-card {
+    box-shadow:
+        0 4px 6px -1px rgb(0 0 0 / .05),
+        0 2px 4px -2px rgb(0 0 0 / .05);
+}
+
+@utility illustration-container {
+    background:
+        linear-gradient(
+            135deg,
+            #F9FAFB 0%,
+            #F3F4F6 100%
+        );
+}
+
+
+/* =====================================================
+   BASE
+===================================================== */
+
+@layer base {
+
+    html {
+        font-family: "Inter", sans-serif;
+    }
+
+    body {
+        background: var(--color-background);
+        color: var(--color-on-background);
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+
+    ::selection {
+        background: var(--color-primary-container);
+        color: var(--color-on-primary-container);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+}
+
+/* =====================================================
+   MATERIAL SYMBOLS
+===================================================== */
+
+.material-symbols-outlined {
+
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+
+    font-size: 20px;
+    line-height: 1;
+    user-select: none;
+
+}
+
+/* Filled icon */
+
+.material-symbols-filled {
+
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 500,
+        'GRAD' 0,
+        'opsz' 24;
+
+}
+
+/* =====================================================
+   FORM
+===================================================== */
+
+input,
+textarea,
+select {
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+
+    outline: none;
+
+}
+
+/* =====================================================
+   LOGIN HELPERS
+===================================================== */
+
+.login-card {
+
+    box-shadow:
+        0 4px 6px -1px rgb(0 0 0 /.05),
+        0 2px 4px -2px rgb(0 0 0 /.05);
+
+}
+
+.login-card:hover {
+
+    box-shadow:
+        0 12px 20px rgb(0 0 0 /.08);
+
+}
+
+/* =====================================================
+   ILLUSTRATION
+===================================================== */
+
+.illustration-container {
+
+    background:
+        linear-gradient(
+            135deg,
+            #F9FAFB 0%,
+            #F3F4F6 100%
+        );
+
+}
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar {
+
+    width: 10px;
+
+}
+
+::-webkit-scrollbar-track {
+
+    background: transparent;
+
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: #D7D7D7;
+    border-radius: 999px;
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: #BDBDBD;
+
+}
+
+/* =====================================================
+   ANIMATION
+===================================================== */
+
+@keyframes fade-in {
+
+    from {
+
+        opacity: 0;
+        transform: translateY(10px);
+
+    }
+
+    to {
+
+        opacity: 1;
+        transform: translateY(0);
+
+    }
+
+}
+
+.fade-in {
+
+    animation: fade-in .35s ease;
+
+}
+
+/* =====================================================
+   UTILITIES
+===================================================== */
+
+.text-balance {
+
+    text-wrap: balance;
+
+}
+
