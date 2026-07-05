@@ -11,6 +11,7 @@
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     </head>
     <body class="min-h-screen bg-[#F9FAFB] font-sans text-[#111827] antialiased" x-data="{ sidebarOpen: false, profileOpen: false }">
         <div class="relative flex min-h-screen flex-col">
@@ -19,10 +20,10 @@
             <div class="flex flex-1 overflow-hidden">
                 @include('layouts.sidebar')
 
-                <div class="flex min-w-0 flex-1 flex-col">
+                <div class="flex min-w-0 flex-1 flex-col h-screen overflow-y-auto md:ml-72">
                     @include('layouts.header')
 
-                    <main class="flex-1 overflow-y-auto bg-[#F9FAFB] px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
+                    <main class="flex-1 bg-[#F9FAFB] px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
                         <div class="mx-auto w-full max-w-7xl">
                             @isset($slot)
                                 {{ $slot }}

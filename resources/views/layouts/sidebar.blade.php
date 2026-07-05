@@ -44,10 +44,6 @@
                     <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">inventory_2</span>
                     <span class="font-body-sm text-body-sm">Products</span>
                 </a>
-                <a class="flex items-center gap-md px-md py-sm {{ request()->routeIs('suppliers.index') ? 'bg-surface-container-low text-primary' : 'text-on-surface-variant hover:bg-surface-container-low' }} transition-colors rounded-lg group" href="{{ route('suppliers.index') }}">
-                    <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">local_shipping</span>
-                    <span class="font-body-sm text-body-sm">Suppliers</span>
-                </a>
             </div>
         @endif
 
@@ -62,10 +58,7 @@
                     <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">file_upload</span>
                     <span class="font-body-sm text-body-sm">Borrowing</span>
                 </a>
-                <a class="flex items-center gap-md px-md py-sm {{ request()->routeIs('returning.index') ? 'bg-surface-container-low text-primary' : 'text-on-surface-variant hover:bg-surface-container-low' }} transition-colors rounded-lg group" href="{{ route('returning.index') }}">
-                    <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">file_download</span>
-                    <span class="font-body-sm text-body-sm">Returning</span>
-                </a>
+
             @endif
         </div>
 
