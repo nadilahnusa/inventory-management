@@ -18,10 +18,11 @@
             <div class="fixed inset-0 z-30 bg-[#111827]/40 md:hidden" x-cloak x-show="sidebarOpen" x-transition.opacity @click="sidebarOpen = false"></div>
 
             <div class="flex flex-1 overflow-hidden">
-                @include('layouts.sidebar')
+                @include('layouts.partials.sidebar')
 
                 <div class="flex min-w-0 flex-1 flex-col h-screen overflow-y-auto md:ml-72">
-                    @include('layouts.header')
+                    @include('layouts.partials.header')
+
 
                     <main class="flex-1 bg-[#F9FAFB] px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
                         <div class="mx-auto w-full max-w-7xl">
@@ -33,7 +34,7 @@
                         </div>
                     </main>
 
-                    @include('layouts.footer')
+                    @include('layouts.partials.footer')
                 </div>
             </div>
         </div>
