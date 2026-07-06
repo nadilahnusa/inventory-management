@@ -2,17 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Borrowing extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    use HasFactory;
+
     protected $fillable = [
         'borrowing_code',
         'user_id',
@@ -27,26 +23,32 @@ class Borrowing extends Model
         'notes',
     ];
 
+    protected $casts = [
+        'borrow_date' => 'date',
+        'return_date' => 'date',
+        'actual_return_date' => 'date',
+    ];
+
     /**
-     * Get the user that owns the borrowing record.
+     * Borrowing created by user.
      */
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * Get the department that owns the borrowing record.
+     * Borrower's department.
      */
-    public function department(): BelongsTo
+    public function department()
     {
         return $this->belongsTo(Department::class);
     }
 
     /**
-     * Get the borrowing details for the borrowing record.
+     * Borrowing has many borrowed items.
      */
-    public function borrowingDetails(): HasMany
+    public function details()
     {
         return $this->hasMany(BorrowingDetail::class);
     }

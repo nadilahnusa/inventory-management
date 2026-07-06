@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BorrowingDetail extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    use HasFactory;
+
     protected $fillable = [
         'borrowing_id',
         'product_id',
@@ -19,17 +16,17 @@ class BorrowingDetail extends Model
     ];
 
     /**
-     * Get the borrowing record that owns the detail.
+     * Parent borrowing.
      */
-    public function borrowing(): BelongsTo
+    public function borrowing()
     {
         return $this->belongsTo(Borrowing::class);
     }
 
     /**
-     * Get the product associated with the detail.
+     * Borrowed product.
      */
-    public function product(): BelongsTo
+    public function product()
     {
         return $this->belongsTo(Product::class);
     }

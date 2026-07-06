@@ -2,17 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    use HasFactory;
+
     protected $fillable = [
         'category_id',
         'code',
@@ -28,17 +24,17 @@ class Product extends Model
     ];
 
     /**
-     * Get the category that owns the product.
+     * Product belongs to category.
      */
-    public function category(): BelongsTo
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
     /**
-     * Get the borrowing details for the product.
+     * Product has many borrowing details.
      */
-    public function borrowingDetails(): HasMany
+    public function borrowingDetails()
     {
         return $this->hasMany(BorrowingDetail::class);
     }
