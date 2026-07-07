@@ -1,37 +1,26 @@
 @props([
-'title',
-'subtitle'=>null
+    'title',
+    'subtitle' => null,
 ])
 
-<div
-class="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+<div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
 
-<div>
+    <div>
+        <h1 class="text-2xl font-semibold tracking-[-0.01em] text-[#111827]">
+            {{ $title }}
+        </h1>
 
-<h1
-class="text-4xl font-bold tracking-tight">
+        @if($subtitle)
+            <p class="mt-2 text-sm text-[#6B7280]">
+                {{ $subtitle }}
+            </p>
+        @endif
+    </div>
 
-{{ $title }}
-
-</h1>
-
-@if($subtitle)
-
-<p
-class="mt-2 text-secondary">
-
-{{ $subtitle }}
-
-</p>
-
-@endif
-
-</div>
-
-<div>
-
-{{ $slot }}
-
-</div>
+    @isset($actions)
+        <div class="flex items-center gap-3">
+            {{ $actions }}
+        </div>
+    @endisset
 
 </div>

@@ -15,11 +15,11 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            ['name' => 'Laptop', 'description' => 'Portable computing devices', 'is_active' => true],
-            ['name' => 'Printer', 'description' => 'Printing and document solutions', 'is_active' => true],
-            ['name' => 'Monitor', 'description' => 'Display and visual equipment', 'is_active' => true],
-            ['name' => 'Networking', 'description' => 'Network infrastructure and communication devices', 'is_active' => true],
-            ['name' => 'Accessories', 'description' => 'Peripheral and supporting equipment', 'is_active' => true],
+            ['name' => 'Laptop', 'description' => 'Portable computing devices'],
+            ['name' => 'Printer', 'description' => 'Printing and document solutions'],
+            ['name' => 'Monitor', 'description' => 'Display and visual equipment'],
+            ['name' => 'Networking', 'description' => 'Network infrastructure and communication devices'],
+            ['name' => 'Accessories', 'description' => 'Peripheral and supporting equipment'],
         ];
 
         foreach ($categories as $category) {
@@ -27,7 +27,6 @@ class CategorySeeder extends Seeder
                 ['name' => $category['name']],
                 [
                     'description' => $category['description'],
-                    'is_active' => $category['is_active'],
                 ],
             );
         }

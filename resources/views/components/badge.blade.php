@@ -1,30 +1,25 @@
 @props([
-    'color'=>'gray'
+'color'=>'gray'
 ])
 
 @php
 
 $colors=[
 
-'green'=>'bg-green-100 text-green-700',
+'success'=>'bg-[#ECFDF5] text-[#047857]',
 
-'red'=>'bg-red-100 text-red-700',
+'danger'=>'bg-[#FFF0EE] text-[#BA0013]',
 
-'blue'=>'bg-blue-100 text-blue-700',
+'warning'=>'bg-[#FEF3C7] text-[#92400E]',
 
-'yellow'=>'bg-yellow-100 text-yellow-700',
+'info'=>'bg-[#EFF6FF] text-[#1D4ED8]',
 
-'gray'=>'bg-gray-100 text-gray-700',
+'gray'=>'bg-[#F3F4F6] text-[#374151]'
 
 ];
 
 @endphp
 
-<span
-{{ $attributes->merge([
-'class'=>"inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ".$colors[$color]
-]) }}>
-
+<span class="rounded-full px-3 py-1 text-xs font-semibold {{ $colors[$color] }}">
 {{ $slot }}
-
 </span>

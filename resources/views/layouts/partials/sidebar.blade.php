@@ -54,7 +54,7 @@
                     <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">inventory</span>
                     <span class="font-body-sm text-body-sm">Inventory</span>
                 </a>
-                <a class="flex items-center gap-md px-md py-sm {{ request()->routeIs('borrowing.index') ? 'bg-surface-container-low text-primary' : 'text-on-surface-variant hover:bg-surface-container-low' }} transition-colors rounded-lg group" href="{{ route('borrowing.index') }}">
+                <a class="flex items-center gap-md px-md py-sm {{ request()->routeIs('borrowings.index') ? 'bg-surface-container-low text-primary' : 'text-on-surface-variant hover:bg-surface-container-low' }} transition-colors rounded-lg group" href="{{ route('borrowings.index') }}">
                     <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">file_upload</span>
                     <span class="font-body-sm text-body-sm">Borrowing</span>
                 </a>

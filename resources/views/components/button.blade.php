@@ -1,47 +1,59 @@
 @props([
-    'type' => 'button',
     'variant' => 'primary',
     'icon' => null,
-    'href' => null,
 ])
 
 @php
-$variants = [
-    'primary' => 'bg-primary text-on-primary hover:opacity-90',
-    'secondary' => 'bg-surface border border-outline-variant text-on-surface hover:bg-surface-container',
-    'danger' => 'bg-red-600 text-white hover:bg-red-700',
-    'success' => 'bg-green-600 text-white hover:bg-green-700',
-];
 
-$classes = $variants[$variant] ?? $variants['primary'];
+$style = match($variant){
+
+'primary' =>
+'bg-[#E31E24] text-white hover:bg-[#C91820]',
+
+'secondary' =>
+'border border-[#E5E7EB] bg-white text-[#374151] hover:bg-[#F9FAFB]',
+
+'danger' =>
+'bg-red-600 text-white hover:bg-red-700',
+
+default =>
+'bg-[#E31E24] text-white'
+
+};
+
 @endphp
 
-@if($href)
-<a href="{{ $href }}"
-    {{ $attributes->merge([
-        'class' => "inline-flex items-center gap-2 rounded-lg px-4 py-2 font-medium transition duration-200 $classes"
-    ]) }}>
+@if($attributes->has('href'))
 
-    @if($icon)
-        <span class="material-symbols-outlined text-[20px]">{{ $icon }}</span>
-    @endif
+<a
+    {{ $attributes }}
+    class="{{ $style }} inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition">
 
-    {{ $slot }}
-
-</a>
 @else
 
 <button
-    type="{{ $type }}"
-    {{ $attributes->merge([
-        'class' => "inline-flex items-center gap-2 rounded-lg px-4 py-2 font-medium transition duration-200 $classes"
-    ]) }}>
+    {{ $attributes }}
+    class="{{ $style }} inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition">
 
-    @if($icon)
-        <span class="material-symbols-outlined text-[20px]">{{ $icon }}</span>
-    @endif
+@endif
 
-    {{ $slot }}
+@if($icon)
+
+<span class="material-symbols-outlined text-[20px]">
+
+{{ $icon }}
+
+</span>
+
+@endif
+
+{{ $slot }}
+
+@if($attributes->has('href'))
+
+</a>
+
+@else
 
 </button>
 

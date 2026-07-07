@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Master;
+namespace App\Http\Requests\Masters;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -19,7 +19,7 @@ class UpdateCategoryRequest extends FormRequest
                 'required',
                 'string',
                 'max:100',
-                Rule::unique('categories')->ignore($this->category),
+                Rule::unique('categories', 'name')->ignore($this->category),
             ],
 
             'description' => [
@@ -27,10 +27,14 @@ class UpdateCategoryRequest extends FormRequest
                 'string',
             ],
 
-            'is_active' => [
-                'required',
-                'boolean',
-            ],
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'name' => 'category name',
+            'description' => 'description'
         ];
     }
 }

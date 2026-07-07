@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.app')
 
 @section('content')
 
@@ -6,21 +6,15 @@
 
     <x-page-header
         title="Create Department"
-        subtitle="Add a new department">
+        subtitle="Add new department" />
 
-    </x-page-header>
+    <form
+        action="{{ route('departments.store') }}"
+        method="POST">
 
-    <x-card>
+        @include('master.departments.form')
 
-        <form
-            action="{{ route('departments.store') }}"
-            method="POST">
-
-            @include('master.departments.partials.form')
-
-        </form>
-
-    </x-card>
+    </form>
 
 </div>
 

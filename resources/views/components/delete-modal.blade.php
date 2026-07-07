@@ -1,52 +1,68 @@
+@props([
+    'title' => 'Delete Data',
+    'subtitle' => 'This action cannot be undone.'
+])
+
 <div
     id="deleteModal"
-    class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/50">
+    class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/40">
 
-    <div class="w-full max-w-md rounded-2xl bg-white shadow-xl">
+    <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
 
-        <div class="border-b p-6">
+        <div class="flex items-center gap-3">
 
-            <h2 class="text-xl font-semibold">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
 
-                Delete Department
+                <span class="material-symbols-outlined text-red-600">
+                    delete
+                </span>
 
-            </h2>
+            </div>
 
-            <p class="mt-2 text-sm text-secondary">
+            <div>
 
-                This action cannot be undone.
+                <h2 class="text-lg font-semibold">
+                    {{ $title }}
+                </h2>
 
-            </p>
+                <p class="text-sm text-gray-500">
+                    {{ $subtitle }}
+                </p>
+
+            </div>
 
         </div>
 
-        <div class="flex justify-end gap-3 p-6">
+        <form
+            id="deleteForm"
+            method="POST"
+            class="mt-6">
 
-            <button
-                onclick="closeDeleteModal()"
-                class="rounded-lg border border-outline-variant px-5 py-2">
+            @csrf
+            @method('DELETE')
 
-                Cancel
+            <div class="flex justify-end gap-3">
 
-            </button>
+                <x-button
+                    type="button"
+                    variant="secondary"
+                    onclick="closeDeleteModal()">
 
-            <form
-                id="deleteForm"
-                method="POST">
+                    Cancel
 
-                @csrf
-                @method('DELETE')
+                </x-button>
 
-                <button
-                    class="rounded-lg bg-red-600 px-5 py-2 text-white">
+                <x-button
+                    type="submit"
+                    icon="delete">
 
                     Delete
 
-                </button>
+                </x-button>
 
-            </form>
+            </div>
 
-        </div>
+        </form>
 
     </div>
 

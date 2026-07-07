@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.app')
 
 @section('content')
 
@@ -6,23 +6,18 @@
 
     <x-page-header
         title="Edit Department"
-        subtitle="Update department information">
+        subtitle="Update department information" />
 
-    </x-page-header>
+    <form
+        action="{{ route('departments.update',$department) }}"
+        method="POST">
 
-    <x-card>
+        @csrf
+        @method('PUT')
 
-        <form
-            action="{{ route('departments.update',$department) }}"
-            method="POST">
+        @include('master.departments.form')
 
-            @method('PUT')
-
-            @include('master.departments.partials.form')
-
-        </form>
-
-    </x-card>
+    </form>
 
 </div>
 

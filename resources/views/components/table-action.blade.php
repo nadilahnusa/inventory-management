@@ -1,43 +1,58 @@
 @props([
-    'edit' => '#',
-    'delete' => '#',
-    'show' => null,
+'show'=>null,
+'edit'=>null,
+'delete'=>null,
 ])
 
 <div class="flex items-center justify-center gap-2">
 
-    {{-- View --}}
-    @if($show)
-        <a href="{{ $show }}"
-           class="flex h-9 w-9 items-center justify-center rounded-lg border border-outline-variant text-secondary transition hover:border-primary hover:bg-primary/10 hover:text-primary">
+@if($show)
 
-            <span class="material-symbols-outlined text-[20px]">
-                visibility
-            </span>
+<a
+href="{{ $show }}"
+class="rounded-lg border border-[#E5E7EB] p-2 hover:bg-sky-50 hover:text-sky-600 transition">
 
-        </a>
-    @endif
+<span class="material-symbols-outlined">
 
-    {{-- Edit --}}
-    <a href="{{ $edit }}"
-       class="flex h-9 w-9 items-center justify-center rounded-lg border border-outline-variant text-secondary transition hover:border-blue-500 hover:bg-blue-50 hover:text-blue-600">
+visibility
 
-        <span class="material-symbols-outlined text-[20px]">
-            edit
-        </span>
+</span>
 
-    </a>
+</a>
 
-    {{-- Delete --}}
-    <button
-        type="button"
-        onclick="openDeleteModal('{{ $delete }}')"
-        class="flex h-9 w-9 items-center justify-center rounded-lg border border-outline-variant text-secondary transition hover:border-red-500 hover:bg-red-50 hover:text-red-600">
+@endif
 
-        <span class="material-symbols-outlined text-[20px]">
-            delete
-        </span>
+@if($edit)
 
-    </button>
+<a
+href="{{ $edit }}"
+class="rounded-lg border border-[#E5E7EB] p-2 hover:bg-amber-50 hover:text-amber-600 transition">
+
+<span class="material-symbols-outlined">
+
+edit
+
+</span>
+
+</a>
+
+@endif
+
+@if($delete)
+
+<button
+    type="button"
+    onclick="openDeleteModal('{{ $delete }}')"
+    class="text-red-600 hover:text-red-700">
+
+    <span class="material-symbols-outlined">
+
+        delete
+
+    </span>
+
+</button>
+
+@endif
 
 </div>

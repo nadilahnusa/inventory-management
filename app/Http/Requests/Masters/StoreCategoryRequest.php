@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Master;
+namespace App\Http\Requests\Masters;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,10 +26,15 @@ class StoreCategoryRequest extends FormRequest
                 'string',
             ],
 
-            'is_active' => [
-                'required',
-                'boolean',
-            ],
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'name' => 'category name',
+            'description' => 'description',
+            'is_active' => 'status',
         ];
     }
 }

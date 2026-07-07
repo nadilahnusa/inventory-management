@@ -1,41 +1,9 @@
 @props([
-    'title'=>null,
-    'subtitle'=>null,
+    'padding' => 'p-6',
 ])
 
-<div
-    {{ $attributes->merge([
-        'class'=>'rounded-2xl border border-outline-variant bg-surface p-6 shadow-sm'
-    ]) }}>
-
-@if($title)
-
-<div class="mb-6">
-
-<h2
-class="text-xl font-semibold">
-
-{{ $title }}
-
-</h2>
-
-@if($subtitle)
-
-<p
-class="mt-1 text-sm text-secondary">
-
-{{ $subtitle }}
-
-</p>
-
-@endif
-
+<div {{ $attributes->merge([
+    'class' => "rounded-xl border border-[#E5E7EB] bg-white {$padding} shadow-sm"
+]) }}>
+    {{ $slot }}
 </div>
-
-@endif
-
-{{ $slot }}
-
-</div>
-
-@endprops
