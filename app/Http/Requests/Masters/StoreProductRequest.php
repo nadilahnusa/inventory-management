@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Master;
+namespace App\Http\Requests\Masters;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,13 +27,6 @@ class StoreProductRequest extends FormRequest
                 'unique:products,code',
             ],
 
-            'serial_number' => [
-                'nullable',
-                'string',
-                'max:100',
-                'unique:products,serial_number',
-            ],
-
             'name' => [
                 'required',
                 'string',
@@ -51,34 +44,26 @@ class StoreProductRequest extends FormRequest
                 'min:1',
             ],
 
-            'available_stock' => [
-                'required',
-                'integer',
-                'min:0',
-            ],
-
-            'location' => [
-                'required',
-                'string',
-                'max:100',
-            ],
-
-            'condition' => [
-                'required',
-                'in:Good,Minor Damage,Damaged,Maintenance,Lost',
-            ],
-
-            'status' => [
-                'required',
-                'in:Available,Borrowed,Maintenance,Disposed',
-            ],
-
             'image' => [
                 'nullable',
                 'image',
+                'mimes:jpg,jpeg,png,webp',
                 'max:2048',
             ],
 
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'category_id' => 'category',
+            'code' => 'product code',
+            'name' => 'product name',
+            'description' => 'description',
+            'total_stock' => 'total stock',
+            'available_stock' => 'available stock',
+            'image' => 'product image',
         ];
     }
 }

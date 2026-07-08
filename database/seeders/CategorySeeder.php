@@ -15,20 +15,60 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            ['name' => 'Laptop', 'description' => 'Portable computing devices'],
-            ['name' => 'Printer', 'description' => 'Printing and document solutions'],
-            ['name' => 'Monitor', 'description' => 'Display and visual equipment'],
-            ['name' => 'Networking', 'description' => 'Network infrastructure and communication devices'],
-            ['name' => 'Accessories', 'description' => 'Peripheral and supporting equipment'],
+
+            [
+                'name' => 'Laptop',
+                'description' => 'Portable computers for office operations',
+            ],
+
+            [
+                'name' => 'Projector',
+                'description' => 'Presentation and meeting equipment',
+            ],
+
+            [
+                'name' => 'Printer',
+                'description' => 'Printing and document devices',
+            ],
+
+            [
+                'name' => 'Monitor',
+                'description' => 'Computer display devices',
+            ],
+
+            [
+                'name' => 'Networking',
+                'description' => 'Network infrastructure and communication devices',
+            ],
+
+            [
+                'name' => 'Peripheral',
+                'description' => 'Computer peripherals and accessories',
+            ],
+
+            [
+                'name' => 'Office Equipment',
+                'description' => 'Office supporting equipment',
+            ],
+
+            [
+                'name' => 'Furniture',
+                'description' => 'Office furniture and meeting equipment',
+            ],
+
         ];
 
         foreach ($categories as $category) {
+
             Category::firstOrCreate(
-                ['name' => $category['name']],
+                [
+                    'name' => $category['name'],
+                ],
                 [
                     'description' => $category['description'],
-                ],
+                ]
             );
+
         }
     }
 }

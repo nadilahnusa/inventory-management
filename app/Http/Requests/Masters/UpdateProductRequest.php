@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Master;
+namespace App\Http\Requests\Masters;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -23,23 +23,20 @@ class UpdateProductRequest extends FormRequest
 
             'code' => [
                 'required',
+                'string',
                 'max:30',
-                Rule::unique('products')->ignore($this->product),
-            ],
-
-            'serial_number' => [
-                'nullable',
-                'max:100',
-                Rule::unique('products')->ignore($this->product),
+                Rule::unique('products', 'code')->ignore($this->product),
             ],
 
             'name' => [
                 'required',
+                'string',
                 'max:100',
             ],
 
             'description' => [
                 'nullable',
+                'string',
             ],
 
             'total_stock' => [
@@ -48,28 +45,10 @@ class UpdateProductRequest extends FormRequest
                 'min:1',
             ],
 
-            'available_stock' => [
-                'required',
-                'integer',
-                'min:0',
-            ],
-
-            'location' => [
-                'required',
-                'max:100',
-            ],
-
-            'condition' => [
-                'required',
-            ],
-
-            'status' => [
-                'required',
-            ],
-
             'image' => [
                 'nullable',
                 'image',
+                'mimes:jpg,jpeg,png,webp',
                 'max:2048',
             ],
 

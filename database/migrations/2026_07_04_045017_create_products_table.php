@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
+
             $table->id();
 
             $table->foreignId('category_id')
@@ -21,10 +22,6 @@ return new class extends Migration
 
             $table->string('code', 30)->unique();
 
-            $table->string('serial_number', 100)
-                ->nullable()
-                ->unique();
-
             $table->string('name', 100);
 
             $table->text('description')->nullable();
@@ -33,26 +30,10 @@ return new class extends Migration
 
             $table->unsignedInteger('available_stock');
 
-            $table->string('location', 100);
-
-            $table->enum('condition', [
-                'Good',
-                'Minor Damage',
-                'Damaged',
-                'Maintenance',
-                'Lost'
-            ])->default('Good');
-
-            $table->enum('status', [
-                'Available',
-                'Borrowed',
-                'Maintenance',
-                'Disposed'
-            ])->default('Available');
-
             $table->string('image')->nullable();
 
             $table->timestamps();
+
         });
     }
 
