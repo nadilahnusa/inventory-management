@@ -15,48 +15,34 @@ return new class extends Migration
 
             $table->id();
 
-            $table->string('borrowing_code', 30)->unique();
+            $table->string('borrowing_code',30)->unique();
 
-            // Petugas gudang yang menginput transaksi
             $table->foreignId('user_id')
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
 
-            // Department peminjam
             $table->foreignId('department_id')
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
 
-            // Barang yang dipinjam
-            $table->foreignId('product_id')
-                ->constrained()
-                ->cascadeOnUpdate()
-                ->restrictOnDelete();
+            $table->string('borrower_name',100);
 
-            // Nama peminjam
-            $table->string('borrower_name', 100);
-
-            // Jumlah barang dipinjam
-            $table->unsignedInteger('quantity')->default(1);
-
-            // Tujuan peminjaman
             $table->string('purpose');
 
-            // Tanggal pinjam & kembali
             $table->date('borrow_date');
+
             $table->date('return_date');
+
             $table->date('actual_return_date')->nullable();
 
-            // Status
-            $table->enum('status', [
+            $table->enum('status',[
                 'Borrowed',
                 'Returned',
-                'Overdue',
+                'Overdue'
             ])->default('Borrowed');
 
-            // Catatan tambahan
             $table->text('notes')->nullable();
 
             $table->timestamps();

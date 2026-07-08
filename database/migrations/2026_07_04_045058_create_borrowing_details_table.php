@@ -25,9 +25,15 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
 
-            $table->unsignedInteger('quantity')->default(1);
+            $table->unsignedInteger('quantity');
 
             $table->timestamps();
+
+            $table->unique([
+                'borrowing_id',
+                'product_id',
+            ]);
+
         });
     }
 

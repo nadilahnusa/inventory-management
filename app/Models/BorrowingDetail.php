@@ -10,9 +10,13 @@ class BorrowingDetail extends Model
     use HasFactory;
 
     protected $fillable = [
+
         'borrowing_id',
+
         'product_id',
+
         'quantity',
+
     ];
 
     /**

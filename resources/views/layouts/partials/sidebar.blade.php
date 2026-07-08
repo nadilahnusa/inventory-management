@@ -50,10 +50,6 @@
         <div class="flex flex-col gap-1 mb-lg">
             <div class="px-md py-2 text-[12px] font-semibold uppercase tracking-widest text-outline opacity-80">Transactions</div>
             @if($user && $user->hasAnyRole(['Administrator', 'Warehouse Staff']))
-                <a class="flex items-center gap-md px-md py-sm {{ request()->routeIs('inventory.index') ? 'bg-surface-container-low text-primary' : 'text-on-surface-variant hover:bg-surface-container-low' }} transition-colors rounded-lg group" href="{{ route('inventory.index') }}">
-                    <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">inventory</span>
-                    <span class="font-body-sm text-body-sm">Inventory</span>
-                </a>
                 <a class="flex items-center gap-md px-md py-sm {{ request()->routeIs('borrowings.index') ? 'bg-surface-container-low text-primary' : 'text-on-surface-variant hover:bg-surface-container-low' }} transition-colors rounded-lg group" href="{{ route('borrowings.index') }}">
                     <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">file_upload</span>
                     <span class="font-body-sm text-body-sm">Borrowing</span>

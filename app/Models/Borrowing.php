@@ -13,7 +13,6 @@ class Borrowing extends Model
         'borrowing_code',
         'user_id',
         'department_id',
-        'employee_id',
         'borrower_name',
         'purpose',
         'borrow_date',
@@ -30,7 +29,7 @@ class Borrowing extends Model
     ];
 
     /**
-     * Borrowing created by user.
+     * Warehouse staff who records the transaction.
      */
     public function user()
     {
@@ -46,7 +45,7 @@ class Borrowing extends Model
     }
 
     /**
-     * Borrowing has many borrowed items.
+     * Borrowed items.
      */
     public function details()
     {

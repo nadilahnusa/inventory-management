@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Transaction;
+namespace App\Http\Requests\Transactions;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreBorrowingsRequest extends FormRequest
+class UpdateBorrowingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

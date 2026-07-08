@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <x-delete-modal />
         @stack('scripts')
+        @stack('modals')
     </body>
 </html>
