@@ -10,7 +10,10 @@
 
     <form
         action="{{ route('products.store') }}"
-        method="POST">
+        method="POST"
+        enctype="multipart/form-data">
+
+        @csrf
 
         @include('master.products.form')
 
