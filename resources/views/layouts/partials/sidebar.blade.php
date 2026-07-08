@@ -47,16 +47,15 @@
             </div>
         @endif
 
-        <div class="flex flex-col gap-1 mb-lg">
-            <div class="px-md py-2 text-[12px] font-semibold uppercase tracking-widest text-outline opacity-80">Transactions</div>
-            @if($user && $user->hasAnyRole(['Administrator', 'Warehouse Staff']))
+        @if($user && $user->hasAnyRole(['Administrator', 'Warehouse Staff']))
+            <div class="flex flex-col gap-1 mb-lg">
+                <div class="px-md py-2 text-[12px] font-semibold uppercase tracking-widest text-outline opacity-80">Transactions</div>
                 <a class="flex items-center gap-md px-md py-sm {{ request()->routeIs('borrowings.index') ? 'bg-surface-container-low text-primary' : 'text-on-surface-variant hover:bg-surface-container-low' }} transition-colors rounded-lg group" href="{{ route('borrowings.index') }}">
                     <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">file_upload</span>
                     <span class="font-body-sm text-body-sm">Borrowing</span>
                 </a>
-
-            @endif
-        </div>
+            </div>
+        @endif
 
         <div class="flex flex-col gap-1 mb-lg">
             <div class="px-md py-2 text-[12px] font-semibold uppercase tracking-widest text-outline opacity-80">Reports</div>
@@ -75,18 +74,49 @@
                     <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">group</span>
                     <span class="font-body-sm text-body-sm">User Management</span>
                 </a>
-                <a class="flex items-center gap-md px-md py-sm {{ request()->routeIs('settings.index') ? 'bg-surface-container-low text-primary' : 'text-on-surface-variant hover:bg-surface-container-low' }} transition-colors rounded-lg group" href="{{ route('settings.index') }}">
-                    <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">settings</span>
-                    <span class="font-body-sm text-body-sm">Settings</span>
-                </a>
             </div>
         @endif
     </nav>
 
     <div class="mt-auto border-t border-outline-variant/30 p-md">
-        <a href="#" class="flex w-full items-center gap-md rounded-lg px-md py-sm text-on-surface-variant transition hover:bg-surface-container-low hover:text-primary group">
-            <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">logout</span>
-            <span class="font-body-sm text-body-sm">Logout</span>
+        <a
+            href="#"
+            onclick="event.preventDefault(); openLogoutModal();"
+            class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg group">
+
+            <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">
+                logout
+            </span>
+
+            <span class="font-body-sm text-body-sm">
+                Logout
+            </span>
         </a>
     </div>
 </aside>
+
+<script>
+
+function openLogoutModal()
+{
+    document
+        .getElementById('logoutModal')
+        .classList.remove('hidden');
+
+    document
+        .getElementById('logoutModal')
+        .classList.add('flex');
+}
+
+function closeLogoutModal()
+{
+    document
+        .getElementById('logoutModal')
+        .classList.add('hidden');
+
+    document
+        .getElementById('logoutModal')
+        .classList.remove('flex');
+}
+
+</script>

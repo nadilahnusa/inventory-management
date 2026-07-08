@@ -2,8 +2,9 @@
     <div class="flex items-center justify-between">
 
         {{-- Profile --}}
-        <button
-            class="group flex items-center gap-md rounded-lg px-md py-sm text-on-surface-variant transition-colors hover:bg-surface-container-low">
+        <a
+            href="{{ route('profile.show') }}"
+            class="group flex items-center gap-md rounded-lg px-md py-sm transition-colors hover:bg-surface-container-low">
 
             <img
                 src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name ?? 'User') }}&background=random"
@@ -11,14 +12,22 @@
                 class="h-10 w-10 rounded-full object-cover">
 
             <div class="text-left">
-                <p class="font-body-sm text-body-sm font-medium text-on-surface group-hover:text-primary transition-colors">
-                    {{ auth()->user()->name ?? 'User' }}
+
+                <p class="font-body-sm text-body-sm font-medium text-on-surface transition-colors group-hover:text-primary">
+
+                    {{ auth()->user()->name }}
+
                 </p>
+
                 <p class="text-xs text-on-surface-variant">
-                    Administrator
+
+                    {{ auth()->user()->getRoleNames()->first() }}
+
                 </p>
+
             </div>
-        </button>
+
+        </a>
 
         {{-- Right Actions --}}
         <div class="flex items-center gap-2">

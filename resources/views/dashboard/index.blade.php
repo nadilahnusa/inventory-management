@@ -1,52 +1,74 @@
 @extends('layouts.app')
 
-@section('page_title', 'Dashboard')
-@section('page_subtitle', 'Inventory Overview')
-
 @section('content')
 
 @php
 
 $cards = [
+
     [
+
         'title' => 'Total Products',
-        'value' => '248',
+
+        'value' => $totalProducts,
+
         'description' => 'Registered assets',
+
         'icon' => 'inventory_2',
+
     ],
+
     [
-        'title' => 'Available Products',
-        'value' => '186',
+
+        'title' => 'Available Stock',
+
+        'value' => $availableProducts,
+
         'description' => 'Ready to borrow',
+
         'icon' => 'check_circle',
+
     ],
+
     [
-        'title' => 'Borrowed Products',
-        'value' => '42',
-        'description' => 'Currently checked out',
+
+        'title' => 'Active Borrowings',
+
+        'value' => $borrowedProducts,
+
+        'description' => 'Currently borrowed',
+
         'icon' => 'inventory',
+
     ],
+
     [
-        'title' => 'Total Borrowings',
-        'value' => '64',
-        'description' => 'This month',
+
+        'title' => 'Total Transactions',
+
+        'value' => $totalBorrowings,
+
+        'description' => 'Borrowing records',
+
         'icon' => 'assignment',
+
     ],
+
 ];
 
 @endphp
 
-<div class="space-y-10">
+<div class="space-y-8">
 
     <x-page-header
         title="Dashboard"
-        subtitle="Track stock, activity, and borrowing status at a glance.">
+        subtitle="Track inventory activity and borrowing statistics.">
 
         <x-slot:actions>
 
-            <div class="rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-sm text-[#6B7280]">
+            <div class="rounded-xl border border-[#E5E7EB] bg-white px-4 py-3 text-sm text-gray-500">
 
-                Last updated: Today, 08:45 AM
+                {{ now()->format('d F Y') }}
 
             </div>
 
@@ -54,7 +76,87 @@ $cards = [
 
     </x-page-header>
 
+    {{-- Welcome Card --}}
+    <x-card>
 
+        <div class="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
+
+            <div>
+
+                <h2 class="text-2xl font-bold text-gray-900">
+
+                    Welcome back,
+                    {{ auth()->user()->name }}
+
+                    👋
+
+                </h2>
+
+                <p class="mt-2 text-gray-500">
+
+                    Here's what's happening with your inventory today.
+
+                </p>
+
+            </div>
+
+            <div class="grid grid-cols-3 gap-4">
+
+                <div class="rounded-xl bg-red-50 px-5 py-4 text-center">
+
+                    <h3 class="text-2xl font-bold text-[#E31E24]">
+
+                        {{ $borrowedProducts }}
+
+                    </h3>
+
+                    <p class="mt-1 text-sm text-gray-500">
+
+                        Active
+
+                    </p>
+
+                </div>
+
+                <div class="rounded-xl bg-green-50 px-5 py-4 text-center">
+
+                    <h3 class="text-2xl font-bold text-green-600">
+
+                        {{ $returnedBorrowings }}
+
+                    </h3>
+
+                    <p class="mt-1 text-sm text-gray-500">
+
+                        Returned
+
+                    </p>
+
+                </div>
+
+                <div class="rounded-xl bg-amber-50 px-5 py-4 text-center">
+
+                    <h3 class="text-2xl font-bold text-amber-600">
+
+                        {{ $overdueBorrowings }}
+
+                    </h3>
+
+                    <p class="mt-1 text-sm text-gray-500">
+
+                        Overdue
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </x-card>
+
+    {{-- Summary Cards --}}
     <section class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
 
         @foreach($cards as $card)
@@ -69,229 +171,377 @@ $cards = [
 
     </section>
 
+    <section class="grid gap-6 xl:grid-cols-[1.7fr_1fr]">
 
-    <section class="grid gap-6 xl:grid-cols-[1.4fr_0.9fr]">
+    {{-- Monthly Borrowing --}}
+    <x-card>
 
-        <x-card>
+        <div class="mb-6 flex items-center justify-between">
 
-            <div class="mb-6 flex items-center justify-between">
-
-                <div>
-
-                    <h2 class="text-lg font-semibold">
-
-                        Statistics Chart
-
-                    </h2>
-
-                    <p class="mt-1 text-sm text-[#6B7280]">
-
-                        Borrowing trend overview for this period.
-
-                    </p>
-
-                </div>
-
-                <x-badge>
-
-                    Preview
-
-                </x-badge>
-
-            </div>
-
-            <div class="flex h-64 items-end gap-3 rounded-lg border border-dashed border-[#E5E7EB] bg-[#F9FAFB] p-4">
-
-                @foreach (['h-[45%]', 'h-[64%]', 'h-[52%]', 'h-[78%]', 'h-[69%]', 'h-[84%]', 'h-[72%]'] as $height)
-
-                    <div class="flex flex-1 items-end">
-
-                        <div class="w-full rounded-t-md bg-[#E31E24]/80 {{ $height }}"></div>
-
-                    </div>
-
-                @endforeach
-
-            </div>
-
-        </x-card>
-
-
-        <x-card>
-
-            <div class="mb-6">
+            <div>
 
                 <h2 class="text-lg font-semibold">
 
-                    Inventory Summary
+                    Monthly Borrowing Trend
 
                 </h2>
 
-                <p class="mt-1 text-sm text-[#6B7280]">
+                <p class="mt-1 text-sm text-gray-500">
 
-                    Current asset distribution.
+                    Borrowing transactions throughout the year
 
                 </p>
 
             </div>
 
-            <div class="space-y-3">
+            <x-badge>
 
-                @foreach([
-                    ['Available','186','success'],
-                    ['Borrowed','42','danger'],
-                    ['Maintenance','20','info']
-                ] as $item)
+                {{ now()->year }}
 
-                    <div class="flex items-center justify-between rounded-lg border border-[#E5E7EB] px-4 py-3">
+            </x-badge>
 
-                        <span>
+        </div>
 
-                            {{ $item[0] }}
+        <div class="h-[340px]">
 
-                        </span>
+            <canvas id="monthlyChart"></canvas>
 
-                        <x-badge :color="$item[2]">
+        </div>
 
-                            {{ $item[1] }}
+    </x-card>
 
-                        </x-badge>
+    {{-- Borrowing Status --}}
+    <x-card>
 
-                    </div>
+        <div class="mb-6">
 
-                @endforeach
+            <h2 class="text-lg font-semibold">
+
+                Borrowing Status
+
+            </h2>
+
+            <p class="mt-1 text-sm text-gray-500">
+
+                Current transaction status
+
+            </p>
+
+        </div>
+
+        <div class="flex h-[340px] items-center justify-center">
+
+            <canvas id="statusChart"></canvas>
+
+        </div>
+
+        <div class="mt-6 space-y-3">
+
+            <div class="flex items-center justify-between">
+
+                <span class="flex items-center gap-2">
+
+                    <span class="h-3 w-3 rounded-full bg-amber-400"></span>
+
+                    Borrowed
+
+                </span>
+
+                <strong>
+
+                    {{ $borrowedProducts }}
+
+                </strong>
 
             </div>
 
-        </x-card>
+            <div class="flex items-center justify-between">
 
-    </section>
+                <span class="flex items-center gap-2">
+
+                    <span class="h-3 w-3 rounded-full bg-green-500"></span>
+
+                    Returned
+
+                </span>
+
+                <strong>
+
+                    {{ $returnedBorrowings }}
+
+                </strong>
+
+            </div>
+
+            <div class="flex items-center justify-between">
+
+                <span class="flex items-center gap-2">
+
+                    <span class="h-3 w-3 rounded-full bg-red-500"></span>
+
+                    Overdue
+
+                </span>
+
+                <strong>
+
+                    {{ $overdueBorrowings }}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </x-card>
+
+</section>
+
+<section class="grid gap-6 xl:grid-cols-[1.6fr_1fr]">
+
+    {{-- Recent Borrowings --}}
+    <x-card>
+
+        <div class="mb-6 flex items-center justify-between">
+
+            <div>
+
+                <h2 class="text-lg font-semibold">
+
+                    Recent Borrowings
+
+                </h2>
+
+                <p class="mt-1 text-sm text-gray-500">
+
+                    Latest borrowing transactions
+
+                </p>
+
+            </div>
+
+            <x-button
+                href="{{ route('borrowings.index') }}"
+                variant="secondary"
+                icon="arrow_forward">
+
+                View All
+
+            </x-button>
+
+        </div>
+
+        <x-datatable
+            :headers="[
+                'Code',
+                'Borrower',
+                'Department',
+                'Items',
+                'Status'
+            ]">
+
+            @forelse($recentBorrowings as $borrowing)
+
+                <tr class="hover:bg-gray-50">
+
+                    <td class="px-6 py-4 font-medium">
+
+                        {{ $borrowing->borrowing_code }}
+
+                    </td>
+
+                    <td class="px-6 py-4">
+
+                        {{ $borrowing->borrower_name }}
+
+                    </td>
+
+                    <td class="px-6 py-4">
+
+                        {{ $borrowing->department->name }}
+
+                    </td>
+
+                    <td class="px-6 py-4">
+
+                        {{ $borrowing->details->count() }}
+
+                        Item(s)
+
+                    </td>
+
+                    <td class="px-6 py-4">
+
+                        @switch($borrowing->status)
+
+                            @case('Borrowed')
+
+                                <x-badge color="warning">
+
+                                    Borrowed
+
+                                </x-badge>
+
+                            @break
+
+                            @case('Returned')
+
+                                <x-badge color="success">
+
+                                    Returned
+
+                                </x-badge>
+
+                            @break
+
+                            @case('Overdue')
+
+                                <x-badge color="danger">
+
+                                    Overdue
+
+                                </x-badge>
+
+                            @break
+
+                        @endswitch
+
+                    </td>
+
+                </tr>
+
+            @empty
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="px-6 py-10 text-center text-gray-500">
+
+                        No borrowing transaction found.
+
+                    </td>
+
+                </tr>
+
+            @endforelse
+
+        </x-datatable>
+
+    </x-card>
 
 
-    <section class="grid gap-6 xl:grid-cols-2">
+    {{-- Low Stock --}}
+    <x-card>
 
-        <x-card>
+        <div class="mb-6 flex items-center justify-between">
 
-            <h2 class="mb-1 text-lg font-semibold">
+            <div>
 
-                Recent Borrowings
+                <h2 class="text-lg font-semibold">
 
-            </h2>
+                    Low Stock Alert
 
-            <p class="mb-6 text-sm text-[#6B7280]">
+                </h2>
 
-                Latest transaction updates.
+                <p class="mt-1 text-sm text-gray-500">
 
-            </p>
+                    Products that need replenishment
 
-            <x-datatable
-                :headers="[
-                    'Borrower',
-                    'Item',
-                    'Date',
-                    'Status'
-                ]">
+                </p>
 
-                @foreach([
-                    ['Rina S.','Laptop Dell XPS','04 Jul 2026','Borrowed','danger'],
-                    ['Budi T.','Projector Epson','03 Jul 2026','Returned','success'],
-                    ['Sari M.','Mobile Scanner','02 Jul 2026','Overdue','warning']
-                ] as $row)
+            </div>
 
-                    <tr>
+            <span
+                class="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-600">
 
-                        <td class="px-6 py-4">
+                {{ $lowStockProducts->count() }}
 
-                            {{ $row[0] }}
+                Items
 
-                        </td>
+            </span>
 
-                        <td class="px-6 py-4">
+        </div>
 
-                            {{ $row[1] }}
+        <div class="space-y-4">
 
-                        </td>
+            @forelse($lowStockProducts as $product)
 
-                        <td class="px-6 py-4">
+                <div
+                    class="rounded-xl border border-red-100 bg-red-50 p-4">
 
-                            {{ $row[2] }}
-
-                        </td>
-
-                        <td class="px-6 py-4">
-
-                            <x-badge :color="$row[4]">
-
-                                {{ $row[3] }}
-
-                            </x-badge>
-
-                        </td>
-
-                    </tr>
-
-                @endforeach
-
-            </x-datatable>
-
-        </x-card>
-
-
-        <x-card>
-
-            <h2 class="mb-1 text-lg font-semibold">
-
-                Latest Activities
-
-            </h2>
-
-            <p class="mb-6 text-sm text-[#6B7280]">
-
-                Recent operational events.
-
-            </p>
-
-            <div class="space-y-3">
-
-                @foreach([
-                    ['Laptop Dell XPS','Requested by Rina S.','Borrowed'],
-                    ['Projector Epson','Returned by Budi T.','Returned'],
-                    ['Mobile Scanner','Due date passed','Overdue']
-                ] as $activity)
-
-                    <div class="flex items-center justify-between rounded-lg border border-[#E5E7EB] px-4 py-3 hover:bg-[#F9FAFB]">
+                    <div class="flex items-start justify-between">
 
                         <div>
 
-                            <p class="font-medium">
+                            <h3 class="font-semibold text-gray-900">
 
-                                {{ $activity[0] }}
+                                {{ $product->name }}
 
-                            </p>
+                            </h3>
 
-                            <p class="text-sm text-[#6B7280]">
+                            <p class="mt-1 text-sm text-gray-500">
 
-                                {{ $activity[1] }}
+                                {{ $product->category->name }}
 
                             </p>
 
                         </div>
 
-                        <x-badge>
+                        <span
+                            class="rounded-full bg-white px-3 py-1 text-sm font-bold text-red-600">
 
-                            {{ $activity[2] }}
+                            {{ $product->available_stock }}
 
-                        </x-badge>
+                        </span>
 
                     </div>
 
-                @endforeach
+                    <div
+                        class="mt-4 h-2 overflow-hidden rounded-full bg-red-100">
 
-            </div>
+                        <div
+                            class="h-full rounded-full bg-red-500"
+                            style="width: {{ min(($product->available_stock/5)*100,100) }}%">
 
-        </x-card>
+                        </div>
 
-    </section>
+                    </div>
+
+                </div>
+
+            @empty
+
+                <div
+                    class="rounded-xl border border-green-100 bg-green-50 p-8 text-center">
+
+                    <span class="material-symbols-outlined text-5xl text-green-500">
+
+                        verified
+
+                    </span>
+
+                    <p class="mt-3 font-medium text-green-700">
+
+                        Great!
+
+                    </p>
+
+                    <p class="mt-1 text-sm text-green-600">
+
+                        No products are running low.
+
+                    </p>
+
+                </div>
+
+            @endforelse
+
+        </div>
+
+    </x-card>
+
+</section>
 
 </div>
 
@@ -299,35 +549,145 @@ $cards = [
 
 @push('scripts')
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
 
-function openDeleteModal(action){
+const monthlyChart = @json($monthlyChart);
 
-    document
-        .getElementById('deleteForm')
-        .action = action;
+const statusChart = @json($statusChart);
 
-    document
-        .getElementById('deleteModal')
-        .classList.remove('hidden');
+// Monthly Line Chart
+new Chart(
 
-    document
-        .getElementById('deleteModal')
-        .classList.add('flex');
+    document.getElementById('monthlyChart'),
 
-}
+    {
 
-function closeDeleteModal(){
+        type: 'line',
 
-    document
-        .getElementById('deleteModal')
-        .classList.add('hidden');
+        data: {
 
-    document
-        .getElementById('deleteModal')
-        .classList.remove('flex');
+            labels: monthlyChart.map(item => item.month),
 
-}
+            datasets: [
+
+                {
+
+                    label: 'Borrowings',
+
+                    data: monthlyChart.map(item => item.total),
+
+                    borderColor: '#E31E24',
+
+                    backgroundColor: 'rgba(227,30,36,.12)',
+
+                    borderWidth: 3,
+
+                    fill: true,
+
+                    tension: .35,
+
+                    pointRadius: 5,
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+
+                    display: false
+
+                }
+
+            },
+
+            scales: {
+
+                y: {
+
+                    beginAtZero: true
+
+                }
+
+            }
+
+        }
+
+    }
+
+);
+
+// Doughnut Chart
+new Chart(
+
+    document.getElementById('statusChart'),
+
+    {
+
+        type: 'doughnut',
+
+        data: {
+
+            labels: Object.keys(statusChart),
+
+            datasets: [
+
+                {
+
+                    data: Object.values(statusChart),
+
+                    backgroundColor: [
+
+                        '#F59E0B',
+
+                        '#22C55E',
+
+                        '#EF4444'
+
+                    ],
+
+                    borderWidth: 0,
+
+                    cutout: '72%'
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+
+                    display: false
+
+                }
+
+            }
+
+        }
+
+    }
+
+);
 
 </script>
 
