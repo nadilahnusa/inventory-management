@@ -1,38 +1,47 @@
 <header class="sticky top-0 z-30 border-b border-outline-variant/50 bg-surface-container-lowest px-xl py-lg shadow-sm">
     <div class="flex items-center justify-between">
 
-        {{-- Profile --}}
-        <a
-            href="{{ route('profile.show') }}"
-            class="group flex items-center gap-md rounded-lg px-md py-sm transition-colors hover:bg-surface-container-low">
+        <div class="flex items-center gap-3">
 
-            <img
-                src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name ?? 'User') }}&background=random"
-                alt="Profile"
-                class="h-10 w-10 rounded-full object-cover">
+            {{-- Hamburger Mobile --}}
+            <button
+                @click="sidebarOpen = true"
+                class="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-surface-container-low lg:hidden">
 
-            <div class="text-left">
+                <span class="material-symbols-outlined">
+                    menu
+                </span>
 
-                <p class="font-body-sm text-body-sm font-medium text-on-surface transition-colors group-hover:text-primary">
+            </button>
 
-                    {{ auth()->user()->name }}
+            {{-- Profile --}}
+            <a
+                href="{{ route('profile.show') }}"
+                class="group flex items-center gap-md rounded-lg px-md py-sm transition-colors hover:bg-surface-container-low">
 
-                </p>
+                <img
+                    src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name ?? 'User') }}&background=random"
+                    alt="Profile"
+                    class="h-10 w-10 rounded-full object-cover">
 
-                <p class="text-xs text-on-surface-variant">
+                <div class="text-left">
 
-                    {{ auth()->user()->getRoleNames()->first() }}
+                    <p class="font-body-sm text-body-sm font-medium text-on-surface transition-colors group-hover:text-primary">
+                        {{ auth()->user()->name }}
+                    </p>
 
-                </p>
+                    <p class="text-xs text-on-surface-variant">
+                        {{ auth()->user()->getRoleNames()->first() }}
+                    </p>
 
-            </div>
+                </div>
 
-        </a>
+            </a>
 
-        {{-- Right Actions --}}
+        </div>
+
         <div class="flex items-center gap-2">
 
-            {{-- Notification --}}
             <button
                 class="group relative flex h-10 w-10 items-center justify-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-container-low">
 
@@ -41,15 +50,16 @@
                 </span>
 
                 <span class="absolute right-2 top-2 h-2 w-2 rounded-full bg-primary"></span>
+
             </button>
 
-            {{-- Help --}}
             <button
                 class="group flex h-10 w-10 items-center justify-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-container-low">
 
                 <span class="material-symbols-outlined transition-colors group-hover:text-primary">
                     help
                 </span>
+
             </button>
 
         </div>

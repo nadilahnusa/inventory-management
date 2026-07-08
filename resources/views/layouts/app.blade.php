@@ -13,14 +13,17 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     </head>
-    <body class="min-h-screen bg-[#F9FAFB] font-sans text-[#111827] antialiased" x-data="{ sidebarOpen: false, profileOpen: false }">
+    <body
+        class="min-h-screen bg-[#F9FAFB] font-sans text-[#111827] antialiased"
+        x-data="{ sidebarOpen: false, profileOpen: false }"
+        @keydown.escape.window="sidebarOpen = false">
         <div class="relative flex min-h-screen flex-col">
-            <div class="fixed inset-0 z-30 bg-[#111827]/40 md:hidden" x-cloak x-show="sidebarOpen" x-transition.opacity @click="sidebarOpen = false"></div>
+            <div class="fixed inset-0 z-30 bg-[#111827]/40 lg:hidden" x-cloak x-show="sidebarOpen" x-transition.opacity @click="sidebarOpen = false"></div>
 
             <div class="flex flex-1 overflow-hidden">
                 @include('layouts.partials.sidebar')
 
-                <div class="flex min-w-0 flex-1 flex-col h-screen overflow-y-auto md:ml-72">
+                <div class="flex min-w-0 flex-1 flex-col h-screen overflow-y-auto lg:ml-[280px]">
                     @include('layouts.partials.header')
 
 

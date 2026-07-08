@@ -6,7 +6,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 
 @php($user = auth()->user())
-<aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant z-50 flex flex-col" style="width: 280px;">
+<aside
+    class="fixed left-0 top-0 h-screen z-40 flex flex-col
+           w-[280px]
+           bg-surface-container-lowest
+           border-r border-outline-variant
+           transform
+           transition-transform
+           duration-300
+           ease-in-out
+           -translate-x-full
+           lg:translate-x-0"
+    :class="{ 'translate-x-0': sidebarOpen }">
+
     <div class="px-lg py-xl flex items-center gap-sm">
         <div class="w-8 h-8 bg-primary rounded flex items-center justify-center flex-shrink-0">
             <span class="material-symbols-outlined text-on-primary" style="font-variation-settings: &quot;FILL&quot; 1;">inventory_2</span>
